@@ -13,6 +13,11 @@ Route::group([
 
     Route::get('/login', array(
         'as' => 'saml_login',
+        'uses' => 'SamlPost\Saml2\Http\Controllers\Saml2Controller@login',
+    ));
+
+    Route::get('/sso', array(
+        'as' => 'saml_sso_form',
         'uses' => 'SamlPost\Saml2\Http\Controllers\Saml2Controller@samlCapture',
     ));
 

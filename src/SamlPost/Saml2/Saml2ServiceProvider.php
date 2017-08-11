@@ -33,6 +33,11 @@ class Saml2ServiceProvider extends ServiceProvider
         if (config('saml2_settings.proxyVars', false)) {
             \OneLogin_Saml2_Utils::setProxyVars(true);
         }
+
+        // Set SAML POST URI config
+        config([
+            'saml2_settings.idp.singleSignOnService.url' => url('/sso'),
+        ]);
     }
 
     /**
