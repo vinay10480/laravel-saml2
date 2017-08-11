@@ -12,7 +12,7 @@ The aim of this library is to be as simple as possible. We won't mess with Larav
 To install Saml2 as a Composer package to be used with Laravel 5, simply run:
 
 ```
-composer require aacotroneo/laravel-saml2
+composer require aherstein/laravel-saml2-post
 ```
 
 Once it's installed, you can register the service provider in `config/app.php` in the `providers` array. If you want, you can add the alias saml2:
