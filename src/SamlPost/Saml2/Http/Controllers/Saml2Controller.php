@@ -1,9 +1,9 @@
 <?php
 
-namespace Nwea\Saml2\Http\Controllers;
+namespace SamlPost\Saml2\Http\Controllers;
 
-use Nwea\Saml2\Events\Saml2LoginEvent;
-use Nwea\Saml2\Saml2Auth;
+use SamlPost\Saml2\Events\Saml2LoginEvent;
+use SamlPost\Saml2\Saml2Auth;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
@@ -101,7 +101,7 @@ class Saml2Controller extends Controller
     }
 
     /**
-     * OneLogin only supports HTTP-Redirect and NWEA only supports HTTP-POST,
+     * OneLogin only supports HTTP-Redirect and SamlPost only supports HTTP-POST,
      * so we have to capture the GET here and POST it to the IDP
      * @param Request $request
      * @return View

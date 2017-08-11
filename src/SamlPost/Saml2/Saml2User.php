@@ -1,13 +1,13 @@
 <?php
 
-namespace Nwea\Saml2;
+namespace SamlPost\Saml2;
 
 use OneLogin_Saml2_Auth;
 
 /**
  * A simple class that represents the user that 'came' inside the saml2 assertion
  * Class Saml2User
- * @package Nwea\Saml2
+ * @package SamlPost\Saml2
  */
 class Saml2User
 {

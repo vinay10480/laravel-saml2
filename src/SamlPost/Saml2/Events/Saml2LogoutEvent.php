@@ -1,6 +1,6 @@
 <?php
 
-namespace Nwea\Saml2\Events;
+namespace SamlPost\Saml2\Events;
 
 class Saml2LogoutEvent {
 

@@ -21,16 +21,16 @@
     },
     "autoload": {
         "psr-0": {
-            "Aacotroneo\\Saml2\\": "src/"
+            "SamlPost\\Saml2\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Aacotroneo\\Saml2\\Saml2ServiceProvider"
+                "SamlPost\\Saml2\\Saml2ServiceProvider"
             ],
             "aliases": {
-                "Saml2": "Aacotroneo\\Saml2\\Facades\\Saml2Auth"
+                "Saml2": "SamlPost\\Saml2\\Facades\\Saml2Auth"
             }
         }
     },

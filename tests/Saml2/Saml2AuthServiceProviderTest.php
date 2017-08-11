@@ -1,6 +1,6 @@
 <?php
 
-namespace Nwea\Saml2;
+namespace SamlPost\Saml2;
 
 
 use App;

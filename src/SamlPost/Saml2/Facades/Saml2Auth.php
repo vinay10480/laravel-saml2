@@ -1,5 +1,5 @@
 <?php
-namespace Nwea\Saml2\Facades;
+namespace SamlPost\Saml2\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -13,7 +13,7 @@ class Saml2Auth extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Nwea\Saml2\Saml2Auth';
+        return 'SamlPost\Saml2\Saml2Auth';
     }
 
 } 

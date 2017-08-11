@@ -215,8 +215,8 @@ return $settings = array(
     'organization' => [
         'en-US' => [
             'name' => 'Name',
-            'displayname' => 'Northwest Evaluation Association',
-            'url' => 'http://www.nwea.org'
+            'displayname' => '',
+            'url' => ''
         ],
     ],
 

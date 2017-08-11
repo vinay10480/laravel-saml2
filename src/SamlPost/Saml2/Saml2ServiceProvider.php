@@ -1,5 +1,5 @@
 <?php
-namespace Nwea\Saml2;
+namespace SamlPost\Saml2;
 
 use OneLogin_Saml2_Auth;
 use URL;
@@ -44,9 +44,9 @@ class Saml2ServiceProvider extends ServiceProvider
     {
         $this->registerOneLoginInContainer();
 
-        $this->app->singleton('Nwea\Saml2\Saml2Auth', function ($app) {
+        $this->app->singleton('SamlPost\Saml2\Saml2Auth', function ($app) {
 
-            return new \Nwea\Saml2\Saml2Auth($app['OneLogin_Saml2_Auth']);
+            return new \SamlPost\Saml2\Saml2Auth($app['OneLogin_Saml2_Auth']);
         });
 
     }

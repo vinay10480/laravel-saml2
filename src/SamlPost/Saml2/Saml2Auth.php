@@ -1,11 +1,11 @@
 <?php
 
-namespace Nwea\Saml2;
+namespace SamlPost\Saml2;
 
 use OneLogin_Saml2_Auth;
 use OneLogin_Saml2_Error;
 use OneLogin_Saml2_Utils;
-use Nwea\Saml2\Events\Saml2LogoutEvent;
+use SamlPost\Saml2\Events\Saml2LogoutEvent;
 
 use Log;
 use Psr\Log\InvalidArgumentException;

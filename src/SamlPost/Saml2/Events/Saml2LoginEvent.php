@@ -1,9 +1,9 @@
 <?php
 
-namespace Nwea\Saml2\Events;
+namespace SamlPost\Saml2\Events;
 
-use Nwea\Saml2\Saml2User;
-use Nwea\Saml2\Saml2Auth;
+use SamlPost\Saml2\Saml2User;
+use SamlPost\Saml2\Saml2Auth;
 
 class Saml2LoginEvent {
 

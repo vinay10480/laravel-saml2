@@ -1,6 +1,6 @@
 <?php
 
-namespace Nwea\Saml2;
+namespace SamlPost\Saml2;
 
 
 use App;
@@ -176,7 +176,7 @@ class Saml2AuthTest extends \PHPUnit_Framework_TestCase
 
 //        $app = m::mock('Illuminate\Contracts\Foundation\Application[register,setDeferredServices]');
 //
-//        $s = m::mock('Nwea\Saml2\Saml2ServiceProvider[publishes]', array($app));
+//        $s = m::mock('SamlPost\Saml2\Saml2ServiceProvider[publishes]', array($app));
 //        $s->boot();
 //        $s->shouldReceive('publishes');
 //
