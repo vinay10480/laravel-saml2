@@ -215,8 +215,8 @@ return $settings = array(
     'organization' => [
         'en-US' => [
             'name' => 'Name',
-            'displayname' => '',
-            'url' => ''
+            'displayname' => 'Display Name',
+            'url' => 'http://yoursite.com'
         ],
     ],
 
