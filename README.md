@@ -33,6 +33,22 @@ Then publish the config file with `php artisan vendor:publish`. This will add th
 
 ### Configuration
 
+## .env file
+Most configuration settings are stored in your .env file. See below for required settings:
+```
+SAML_IDP_HOST=
+SAML_IDP_ENTITY_ID=
+SAML_IDP_SIGN_ON_URL=
+SAML_IDP_SIGN_ON_BINDING=
+SAML_IDP_LOG_OUT_URL=
+SAML_IDP_LOG_OUT_BINDING=
+SAML_IDP_X509CERT=
+
+SAML_SP_X509CERT=
+SAML_SP_PRIVATE_KEY=
+SAML_SP_NAME_ID_FORMAT=
+```
+
 Once you publish your saml2_settings.php to your own files, you need to configure your sp and IDP (remote server). The only real difference between this config and the one that OneLogin uses, is that the SP entityId, assertionConsumerService url and singleLogoutService URL are injected by the library. They are taken from routes 'saml_metadata', 'saml_acs' and 'saml_sls' respectively.
 
 Remember that you don't need to implement those routes, but you'll need to add them to your IDP configuration. For example, if you use simplesamlphp, add the following to /metadata/sp-remote.php
@@ -51,7 +67,19 @@ You can check that metadata if you actually navigate to 'http://laravel_url/saml
 
 ### Usage
 
-When you want your user to login, just call `Saml2Auth::login()` or redirect to route 'saml2_login'. Just remember that it does not use any session storage, so if you ask it to login it will redirect to the IDP whether the user is logged in or not. For example, you can change your authentication middleware.
+## Login View
+
+You will need to include the following code in a view called `login`:
+```blade
+    <form method="post" action="{{$baseUri}}" accept-charset="utf-8">
+        <input type="submit" value="Log In via SSO"/>
+        @foreach ($samlParameters as $k => $v)
+            <input type="hidden" name="{{$k}}" value="{{$v}}"/>
+        @endforeach
+    </form>
+```
+
+When you want your user to login, just call `Saml2Auth::login(URL::full())` or redirect to route 'saml2_login'. Just remember that it does not use any session storage, so if you ask it to login it will redirect to the IDP whether the user is logged in or not. For example, you can change your authentication middleware.
 ```php
 	public function handle($request, Closure $next)
 	{
