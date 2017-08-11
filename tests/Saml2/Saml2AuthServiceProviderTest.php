@@ -1,6 +1,6 @@
 <?php
 
-namespace Aacotroneo\Saml2;
+namespace Nwea\Saml2;
 
 
 use App;

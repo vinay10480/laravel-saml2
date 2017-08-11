@@ -1,9 +1,9 @@
 <?php
 
-namespace Aacotroneo\Saml2\Http\Controllers;
+namespace Nwea\Saml2\Http\Controllers;
 
-use Aacotroneo\Saml2\Events\Saml2LoginEvent;
-use Aacotroneo\Saml2\Saml2Auth;
+use Nwea\Saml2\Events\Saml2LoginEvent;
+use Nwea\Saml2\Saml2Auth;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
@@ -98,6 +98,26 @@ class Saml2Controller extends Controller
     public function login()
     {
         $this->saml2Auth->login(config('saml2_settings.loginRoute'));
+    }
+
+    /**
+     * OneLogin only supports HTTP-Redirect and NWEA only supports HTTP-POST,
+     * so we have to capture the GET here and POST it to the IDP
+     * @param Request $request
+     * @return View
+     */
+    public function samlCapture(Request $request)
+    {
+        $baseUri = env('SAML_IDP_HOST') . env('SAML_IDP_SIGN_ON_URL');
+        $fullUri = $baseUri . '?' . http_build_query($request->query());
+        $samlParameters = $request->query();
+
+        return view('login', [
+            'isLoggedIn' => false,
+            'baseUri' => $baseUri,
+            'fullUri' => $fullUri,
+            'samlParameters' => $samlParameters
+        ]);
     }
 
 }
