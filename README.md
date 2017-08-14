@@ -90,7 +90,7 @@ Add guard configuration to `config/auth.php`
 ...
 
 'saml' => [
-    'driver' => 'saml',
+    'driver' => 'session',
     'provider' => 'samlusers',
 ],
 
