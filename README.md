@@ -122,7 +122,6 @@ Make sure to add a login and logout event listener to `app/Listeners/` to handle
         $auth = $event->getSaml2Auth();
 
         Log::debug($user->getAttributes());
-//        dd($user); // Dump SAML response data
 
         // Store SAML response data in session
         $this->request->session()->put('isLoggedIn', $auth->isAuthenticated());
