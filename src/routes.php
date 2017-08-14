@@ -12,7 +12,7 @@ Route::group([
     ));
 
     Route::get('/login', array(
-        'as' => 'saml_login',
+        'as' => 'login',
         'uses' => 'SamlPost\Saml2\Http\Controllers\Saml2Controller@login',
     ));
 
