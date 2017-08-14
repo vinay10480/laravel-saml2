@@ -106,7 +106,7 @@ Add guard configuration to `config/auth.php`
 
 Add to routes file:
 ```php
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:saml'])->group(function () {
     // Secured routes go here
 });
 ```
