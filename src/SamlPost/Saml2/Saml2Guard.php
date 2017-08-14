@@ -7,6 +7,11 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class Saml2Guard implements \Illuminate\Contracts\Auth\Guard
 {
+    public function __construct(UserProvider $provider, SessionInterface $session, Request $request = null)
+    {
+
+        $this->request = $request;
+    }
 
     /**
      * Check if SAML user is logged in
@@ -19,12 +24,17 @@ class Saml2Guard implements \Illuminate\Contracts\Auth\Guard
 
     public function guest()
     {
-        //TODO
+        $isLoggedIn = session('isLoggedIn');
+        if (empty($isLoggedIn)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function user()
     {
-        //TODO
+        return session('user');
     }
 
     public function id()
@@ -40,6 +50,7 @@ class Saml2Guard implements \Illuminate\Contracts\Auth\Guard
 
     public function setUser(Authenticatable $user)
     {
-        //TODO
+        $this->request->session()->put('user', $user->getAttributes());
+
     }
 }
