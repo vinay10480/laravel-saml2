@@ -64,6 +64,52 @@ $metadata['http://laravel_url/saml2/metadata'] = array(
 ```
 You can check that metadata if you actually navigate to 'http://laravel_url/saml2/metadata'
 
+## Authentication Guard
+
+This library supports usage of Laravel's built-in authentication guards.
+
+Add to `app/Providers/AuthServiceProvider.php` `boot()` method:
+
+```php
+    public function boot()
+    {
+        $this->registerPolicies();
+        
+        Auth::extend('saml', function ($app, $name, array $config) {
+        
+            return new Saml2Guard(Auth::createUserProvider($config['provider']));
+        
+        });
+```
+
+Add guard configuration to `config/auth.php`
+
+```php
+'guards' => [
+
+...
+
+'saml' => [
+    'driver' => 'saml',
+    'provider' => 'samlusers',
+],
+
+'providers' => [
+
+...
+
+'samlusers' => [
+    'driver' => 'eloquent',
+    'model' => SamlPost\Saml2\Saml2User::class,
+],
+```
+
+Add to routes file:
+```php
+Route::middleware(['auth'])->group(function () {
+    // Secured routes go here
+});
+```
 
 ### Usage
 
