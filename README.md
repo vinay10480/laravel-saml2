@@ -104,29 +104,8 @@ Add guard configuration to `config/auth.php`
 ],
 ```
 
-Add to routes file:
-```php
-Route::middleware(['auth:saml'])->group(function () {
-    // Secured routes go here
-});
-```
-
 ### Listeners
-Make sure to add a login and logout event listener to `app/Listeners/` to handle login events
-```php
-    public function handle(Saml2LoginEvent $event)
-    {
-        $user = $event->getSaml2User();
-        $auth = $event->getSaml2Auth();
-
-        // Store SAML response data in session
-        $this->request->session()->put('isLoggedIn', $auth->isAuthenticated());
-        $this->request->session()->put('samlData', $user);
-        $this->request->session()->put('user', $user->getAttributes());
-    }
-```
-
-Then register them in `app/Providers/EventServiceProvider.php`
+Make sure to resgister the login and logout event listener in `app/Providers/EventServiceProvider.php`
 
 ```php
     protected $listen = [
@@ -153,46 +132,28 @@ You will need to include the following code in a view called `login`:
     </form>
 ```
 
-When you want your user to login, just call `Saml2Auth::login(URL::full())` or redirect to route 'saml2_login'. Just remember that it does not use any session storage, so if you ask it to login it will redirect to the IDP whether the user is logged in or not. For example, you can change your authentication middleware.
-```php
-	public function handle($request, Closure $next)
-	{
-		if ($this->auth->guest())
-		{
-			if ($request->ajax())
-			{
-				return response('Unauthorized.', 401);
-			}
-			else
-			{
-        			 return Saml2::login(URL::full());
-                		 //return redirect()->guest('auth/login');
-			}
-		}
-
-		return $next($request);
-	}
-```
-
-The Saml2::login will redirect the user to the IDP and will came back to an endpoint the library serves at /saml2/acs. That will process the response and fire an event when ready. The next step for you is to handle that event. You just need to login the user or refuse.
+To initiate a login, just include all paths you want to protect in the routes file:
 
 ```php
-
- Event::listen('SamlPost\Saml2\Events\Saml2LoginEvent', function (Saml2LoginEvent $event) {
-            $messageId = $event->getSaml2Auth()->getLastMessageId();
-            // your own code preventing reuse of a $messageId to stop replay attacks
-            $user = $event->getSaml2User();
-            $userData = [
-                'id' => $user->getUserId(),
-                'attributes' => $user->getAttributes(),
-                'assertion' => $user->getRawSamlAssertion()
-            ];
-             $laravelUser = //find user by ID or attribute
-             //if it does not exist create it and go on  or show an error message
-             Auth::login($laravelUser);
-        });
-
+Route::middleware(['auth:saml'])->group(function () {
+    // Secured routes go here
+});
 ```
+
+The Saml2::login will redirect the user to the IDP and will came back to an endpoint the library serves at /saml2/acs. That will process the response and fire an event when ready. The next step for you is to handle that event by adding a login and logout event listener to `app/Listeners/`:
+```php
+    public function handle(Saml2LoginEvent $event)
+    {
+        $user = $event->getSaml2User();
+        $auth = $event->getSaml2Auth();
+
+        // Store SAML response data in session
+        $this->request->session()->put('isLoggedIn', $auth->isAuthenticated());
+        $this->request->session()->put('samlData', $user);
+        $this->request->session()->put('user', $user->getAttributes());
+    }
+```
+
 ### Log out
 Now there are two ways the user can log out.
  + 1 - By logging out in your app: In this case you 'should' notify the IDP first so it closes global session.
@@ -205,10 +166,13 @@ For case 2 you will only receive the event. Both cases 1 and 2 receive the same 
 Note that for case 2, you may have to manually save your session to make the logout stick (as the session is saved by middleware, but the OneLogin library will redirect back to your IDP before that happens)
 
 ```php
-        Event::listen('SamlPost\Saml2\Events\Saml2LogoutEvent', function ($event) {
-            Auth::logout();
-            Session::save();
-        });
+public function handle(Saml2LogoutEvent $event)
+{
+    // Clear out SAML data from session
+    $this->request->session()->put('isLoggedIn', false);
+    $this->request->session()->put('samlData', null);
+    $this->request->session()->put('user', null);
+}
 ```
 
 
