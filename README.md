@@ -111,6 +111,39 @@ Route::middleware(['auth'])->group(function () {
 });
 ```
 
+## Listeners
+Make sure to add a login and logout event listener to `app/Listeners/` to handle login events
+```php
+    public function handle(Saml2LoginEvent $event)
+    {
+        Log::debug("Login event");
+
+        $user = $event->getSaml2User();
+        $auth = $event->getSaml2Auth();
+
+        Log::debug($user->getAttributes());
+//        dd($user); // Dump SAML response data
+
+        // Store SAML response data in session
+        $this->request->session()->put('isLoggedIn', $auth->isAuthenticated());
+        $this->request->session()->put('samlData', $user);
+        $this->request->session()->put('user', $user->getAttributes());
+    }
+```
+
+Then register them in `app/Providers/EventServiceProvider.php`
+
+```php
+    protected $listen = [
+        'SamlPost\Saml2\Events\Saml2LoginEvent' => [
+            'App\Listeners\LoginListener',
+        ],
+        'SamlPost\Saml2\Events\Saml2LogoutEvent' => [
+            'App\Listeners\LogoutListener',
+        ],
+    ];
+```
+
 ### Usage
 
 ## Login View
