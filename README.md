@@ -31,9 +31,9 @@ Once it's installed, you can register the service provider in `config/app.php` i
 
 Then publish the config file with `php artisan vendor:publish`. This will add the file `app/config/saml2_settings.php`. This config is handled almost directly by  [OneLogin](https://github.com/onelogin/php-saml) so you may get further references there, but will cover here what's really necessary. There are some other config about routes you may want to check, they are pretty straightforward.
 
-### Configuration
+## Configuration and Setup
 
-## .env file
+### .env file
 Most configuration settings are stored in your .env file. See below for required settings:
 ```
 SAML_IDP_HOST=
@@ -64,7 +64,7 @@ $metadata['http://laravel_url/saml2/metadata'] = array(
 ```
 You can check that metadata if you actually navigate to 'http://laravel_url/saml2/metadata'
 
-## Authentication Guard
+### Authentication Guard
 
 This library supports usage of Laravel's built-in authentication guards.
 
@@ -111,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
 });
 ```
 
-## Listeners
+### Listeners
 Make sure to add a login and logout event listener to `app/Listeners/` to handle login events
 ```php
     public function handle(Saml2LoginEvent $event)
@@ -143,9 +143,9 @@ Then register them in `app/Providers/EventServiceProvider.php`
     ];
 ```
 
-### Usage
+## Usage
 
-## Login View
+### Login View
 
 You will need to include the following code in a view called `login`:
 ```blade
