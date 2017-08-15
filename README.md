@@ -65,6 +65,8 @@ $metadata['http://laravel_url/saml2/metadata'] = array(
 ```
 You can check that metadata if you actually navigate to 'http://laravel_url/saml2/metadata'
 
+Make sure ConfigServiceProvider is properly injecting the correct singleSignOnService url setting for the IDP.
+
 ### Authentication Guard
 
 This library supports usage of Laravel's built-in authentication guards.
