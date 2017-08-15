@@ -2,10 +2,10 @@
 
 namespace SamlPost\Saml2\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use SamlPost\Saml2\Events\Saml2LoginEvent;
 use SamlPost\Saml2\Saml2Auth;
-use Illuminate\Routing\Controller;
-use Illuminate\Http\Request;
 
 
 class Saml2Controller extends Controller
@@ -116,8 +116,19 @@ class Saml2Controller extends Controller
             'isLoggedIn' => false,
             'baseUri' => $baseUri,
             'fullUri' => $fullUri,
-            'samlParameters' => $samlParameters
+            'samlParameters' => $this->replaceDestinationUri($samlParameters)
         ]);
     }
 
+
+    protected function replaceDestinationUri($samlParameters)
+    {
+        $decodedSamlData = base64_decode($samlParameters['SAMLRequest']); // Decode SAML data
+        $replacedSamlData = str_replace(url('/sso'), env('SAML_IDP_SSO_DESTINATION_URL'),
+            $decodedSamlData); // Replace with proper URI from env file
+        $encodedSamlData = base64_encode($replacedSamlData); // Re-encode the SAML data
+        $samlParameters['SAMLRequest'] = $encodedSamlData; // Put re-encoded SAML data back into request
+
+        return $samlParameters;
+    }
 }
