@@ -9,7 +9,7 @@ use OneLogin_Saml2_Auth;
  * Class Saml2User
  * @package SamlPost\Saml2
  */
-class Saml2User extends Illuminate\Contracts\Auth\Authenticatable
+class Saml2User implements \Illuminate\Contracts\Auth\Authenticatable
 {
 
     protected $auth;
@@ -109,6 +109,69 @@ class Saml2User extends Illuminate\Contracts\Auth\Authenticatable
     function getNameId()
     {
         return $this->auth->getNameId();
+    }
+
+    // Authenticatable functions
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return "";
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->getNameId();
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return "";
+    }
+
+    /**
+     * Get the token value for the "remember me" session.
+     *
+     * @return string
+     */
+    public function getRememberToken()
+    {
+        return "";
+    }
+
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param  string $value
+     * @return void
+     */
+    public function setRememberToken($value)
+    {
+        //
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return "";
     }
 
 }
