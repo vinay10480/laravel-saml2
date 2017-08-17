@@ -9,6 +9,8 @@ use SamlPost\Saml2\Facades\Saml2Auth;
 
 class Saml2Guard implements \Illuminate\Contracts\Auth\Guard
 {
+    protected $request;
+
     public function __construct(Request $request = null)
     {
 
