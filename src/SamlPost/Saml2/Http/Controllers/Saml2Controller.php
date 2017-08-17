@@ -124,7 +124,7 @@ class Saml2Controller extends Controller
     protected function replaceDestinationUri($samlParameters)
     {
         $decodedSamlData = base64_decode($samlParameters['SAMLRequest']); // Decode SAML data
-        $replacedSamlData = str_replace(url('/sso'), env('SAML_IDP_SSO_DESTINATION_URL'),
+        $replacedSamlData = str_replace(url('/sso'), env('SAML_IDP_HOST') . env('SAML_IDP_SIGN_ON_URL'),
             $decodedSamlData); // Replace with proper URI from env file
         $encodedSamlData = base64_encode($replacedSamlData); // Re-encode the SAML data
         $samlParameters['SAMLRequest'] = $encodedSamlData; // Put re-encoded SAML data back into request
