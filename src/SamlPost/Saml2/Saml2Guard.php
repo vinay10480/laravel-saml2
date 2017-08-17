@@ -4,6 +4,8 @@ namespace SamlPost\Saml2;
 
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use SamlPost\Saml2\Facades\Saml2Auth;
+
 
 class Saml2Guard implements \Illuminate\Contracts\Auth\Guard
 {
@@ -45,7 +47,7 @@ class Saml2Guard implements \Illuminate\Contracts\Auth\Guard
 
     public function validate(array $credentials = [])
     {
-        Saml2Auth::login(URL::full());
+        return Saml2Auth::login(URL::full());
     }
 
     public function setUser(Authenticatable $user)
