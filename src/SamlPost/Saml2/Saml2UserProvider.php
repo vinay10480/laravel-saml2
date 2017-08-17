@@ -1,11 +1,10 @@
 <?php
 
-namespace Illuminate\Auth;
+namespace SamlPost\Saml2;
 
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Support\Str;
-use SamlPost\Saml2\Saml2User;
 
 class Saml2UserProvider implements UserProvider
 {
