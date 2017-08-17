@@ -9,7 +9,7 @@ use SamlPost\Saml2\Facades\Saml2Auth;
 
 class Saml2Guard implements \Illuminate\Contracts\Auth\Guard
 {
-    public function __construct(UserProvider $provider, SessionInterface $session, Request $request = null)
+    public function __construct(Request $request = null)
     {
 
         $this->request = $request;
