@@ -9,7 +9,7 @@ use OneLogin_Saml2_Auth;
  * Class Saml2User
  * @package SamlPost\Saml2
  */
-class Saml2User
+class Saml2User extends Illuminate\Contracts\Auth\Authenticatable
 {
 
     protected $auth;
