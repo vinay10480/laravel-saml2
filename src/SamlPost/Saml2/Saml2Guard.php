@@ -45,7 +45,7 @@ class Saml2Guard implements \Illuminate\Contracts\Auth\Guard
 
     public function validate(array $credentials = [])
     {
-        Saml2Auth::login(URL::full());
+        return Saml2Auth::login(URL::full());
     }
 
     public function setUser(Authenticatable $user)
