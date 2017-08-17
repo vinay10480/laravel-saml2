@@ -14,7 +14,7 @@ class Saml2User implements \Illuminate\Contracts\Auth\Authenticatable
 
     protected $auth;
 
-    function __construct(OneLogin_Saml2_Auth $auth)
+    function __construct(OneLogin_Saml2_Auth $auth = null)
     {
         $this->auth = $auth;
     }
@@ -120,7 +120,7 @@ class Saml2User implements \Illuminate\Contracts\Auth\Authenticatable
      */
     public function getAuthIdentifierName()
     {
-        return "";
+        return $this->getNameId();;
     }
 
     /**
@@ -130,7 +130,7 @@ class Saml2User implements \Illuminate\Contracts\Auth\Authenticatable
      */
     public function getAuthIdentifier()
     {
-        return $this->getNameId();
+        return $this->getUserId();
     }
 
     /**
@@ -150,7 +150,7 @@ class Saml2User implements \Illuminate\Contracts\Auth\Authenticatable
      */
     public function getRememberToken()
     {
-        return "";
+        return $this->getSessionIndex();
     }
 
     /**
