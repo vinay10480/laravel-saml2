@@ -24,7 +24,7 @@ class ConfigServiceProvider extends ServiceProvider
     public function register()
     {
         config([
-            'saml2_settings.idp.singleSignOnService.url' => url('/sso'),
+            'saml2_settings.idp.singleSignOnService.url' => route('saml_sso_form'),
         ]);
     }
 }
