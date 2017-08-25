@@ -1,9 +1,9 @@
 <?php
 namespace SamlPost\Saml2;
 
+use Illuminate\Support\ServiceProvider;
 use OneLogin_Saml2_Auth;
 use URL;
-use Illuminate\Support\ServiceProvider;
 
 class Saml2ServiceProvider extends ServiceProvider
 {
@@ -36,7 +36,7 @@ class Saml2ServiceProvider extends ServiceProvider
 
         // Set SAML POST URI config
         config([
-            'saml2_settings.idp.singleSignOnService.url' => url('/sso'),
+            'saml2_settings.idp.singleSignOnService.url' => route('saml_sso_form'),
         ]);
     }
 
