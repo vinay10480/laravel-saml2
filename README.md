@@ -78,9 +78,11 @@ Add to `app/Providers/AuthServiceProvider.php` `boot()` method:
         $this->registerPolicies();
         
         Auth::extend('saml', function ($app, $name, array $config) {
-        
             return new Saml2Guard(Auth::createUserProvider($config['provider']));
+        });
         
+        Auth::provider('samldriver', function ($app, array $config) {
+            return new Saml2UserProvider();
         });
 ```
 
@@ -101,7 +103,7 @@ Add guard configuration to `config/auth.php`
 ...
 
 'samlusers' => [
-    'driver' => 'eloquent',
+    'driver' => 'samldriver',
     'model' => SamlPost\Saml2\Saml2User::class,
 ],
 ```
